@@ -4,24 +4,33 @@ version: 0.0.1
 description: |-
   The core schema for InterMine
 license: https://creativecommons.org/publicdomain/zero/1.0/
-default_curi_maps:
-  - semweb_context
+
 imports:
   - linkml:types
 prefixes:
   intermine: https://w3id.org/intermine/
   linkml: https://w3id.org/linkml/
+  rdf: http://www.w3.org/1999/02/22-rdf-syntax-ns#
   rdfs: http://www.w3.org/2000/01/rdf-schema#
+  skos: http://www.w3.org/2004/02/skos/core#
+  schema: http://schema.org/
+  bibo: http://purl.org/ontology/bibo/
   NCIT: http://purl.obolibrary.org/obo/NCIT_
+  SIO: http://semanticscience.org/resource/SIO_
+  foaf: http://xmlns.com/foaf/0.1/
+  OIO: http://www.geneontology.org/formats/oboInOwl#
+  EDAM: http://edamontology.org/
+  dc: http://purl.org/dc/elements/1.1/
+  dcterms: http://purl.org/dc/terms/
+  RO: http://purl.obolibrary.org/obo/RO_
+  GENO: http://purl.obolibrary.org/obo/GENO_
+  ERO: http://purl.obolibrary.org/obo/ERO_
+  uniprot.core: http://purl.uniprot.org/core/
+  SO: http://purl.obolibrary.org/obo/SO_
+  ECO: http://purl.obolibrary.org/obo/ECO_
 
 default_prefix: intermine
 default_range: string
-
-emit_prefixes:
-  - rdf
-  - rdfs
-  - xsd
-  - skos
 
 classes:
 
@@ -113,15 +122,15 @@ classes:
         slot_uri: EDAM:data_1772
         range: double
       scoreType:
-        slot_uri: dct:type
+        slot_uri: dcterms:type
       length:
-        slot_uri: dct:type
+        slot_uri: dcterms:type
         range: integer
       sequence:
         range: Sequence
         multivalued: false
       chromosome:
-        slot_uri: dct:isPartOf
+        slot_uri: dcterms:isPartOf
         range: Chromosome
         multivalued: false
       chromosomeLocation:
@@ -151,7 +160,7 @@ classes:
       - type
     slot_usage:
       description:
-        slot_uri: dct:description
+        slot_uri: dcterms:description
       type:
         slot_uri: http://ncicb.nci.nih.gov/xml/owl/EVS/Thesaurus.owl#C25284
 
@@ -190,9 +199,9 @@ classes:
       url:
         slot_uri: EDAM:data_1052
       description:
-        slot_uri: dct:description
+        slot_uri: dcterms:description
       publications:
-        slot_uri: dct:bibliographicCitation
+        slot_uri: dcterms:bibliographicCitation
         range: Publication
         multivalued: true
       dataSets:
@@ -216,17 +225,17 @@ classes:
       url:
         slot_uri: schema:url
       description:
-        slot_uri: dct:description
+        slot_uri: dcterms:description
       version:
-        slot_uri: dct:hasVersion
+        slot_uri: dcterms:hasVersion
       licence:
-        slot_uri: dct:license
+        slot_uri: dcterms:license
       dataSource:
-        slot_uri: dct:source
+        slot_uri: dcterms:source
         range: DataSource
         multivalued: false
       publication:
-        slot_uri: dct:bibliographicCitation
+        slot_uri: dcterms:bibliographicCitation
         range: Publication
         multivalued: false
       bioEntities:
@@ -243,7 +252,7 @@ classes:
       - proteins
     slot_usage:
       description:
-        slot_uri: dct:description
+        slot_uri: dcterms:description
       briefDescription:
         slot_uri: SIO:000136
       proteins:
@@ -288,7 +297,7 @@ classes:
       name:
         slot_uri: rdfs:label
       publications:
-        slot_uri: dct:bibliographicCitation
+        slot_uri: dcterms:bibliographicCitation
         range: Publication
         multivalued: true
   
@@ -329,7 +338,7 @@ classes:
         range: OntologyAnnotationEvidenceCode
         multivalued: false
       publications:
-        slot_uri: dct:bibliographicCitation
+        slot_uri: dcterms:bibliographicCitation
         range: Publication
         multivalued: true
 
@@ -354,7 +363,7 @@ classes:
       name:
         slot_uri: rdfs:label
       description:
-        slot_uri: dct:description
+        slot_uri: dcterms:description
       namespace:
         slot_uri: SIO:000067
       obsolete:
@@ -419,7 +428,7 @@ classes:
       ontologyTerm:
         range: OntologyTerm
         multivalued: false
-      datasets:
+      dataSets:
         range: DataSet
         multivalued: true
       evidence:
@@ -464,7 +473,7 @@ classes:
         multivalued: true
 
   Protein:
-    class_uri: http://purl.uniprot.org/core/Protein
+    class_uri: uniprot.core:Protein
     is_a: BioEntity
     slots:
       - md5checksum
@@ -475,25 +484,24 @@ classes:
       - genes
     slot_usage:
       md5checksum:
-        slot_uri: http://purl.uniprot.org/core/md5Checksum
+        slot_uri: uniprot.core:md5Checksum
       primaryAccession:
         slot_uri: ERO:0000405
       length:
-        slot_uri: dct:SizeOrDuration
+        slot_uri: dcterms:SizeOrDuration
       molecularWeight:
-        slot_uri: http://purl.uniprot.org/core/mass
+        slot_uri: uniprot.core:mass
       sequence:
-        slot_uri: http://purl.uniprot.org/core/sequence
+        slot_uri: uniprot.core:sequence
         range: Sequence
         multivalued: false
       genes:
         slot_uri: SIO:010079
         range: Gene
         multivalued: true
-        inverse: proteins
 
   Publication:
-    class_uri: http://purl.org/ontology/bibo/Article
+    class_uri: BIBO:Article
     slots:
       - title
       - doi
@@ -511,30 +519,29 @@ classes:
       - meshTerms
     slot_usage:
       title:
-        slot_uri: http://purl.org/dc/terms/title
+        slot_uri: dcterms:title
       doi:
-        slot_uri: http://purl.org/ontology/bibo/doi
+        slot_uri: BIBO:doi
       issue:
-        slot_uri: http://purl.org/ontology/bibo/issuer
+        slot_uri: BIBO:issuer
       pubMedId:
         slot_uri: ERO:0000569
       pages:
-        slot_uri: http://purl.org/ontology/bibo/numPages
+        slot_uri: BIBO:numPages
       year:
-        slot_uri: http://purl.org/dc/terms/date
+        slot_uri: dcterms:date
       volume:
-        slot_uri: http://purl.org/ontology/bibo/volume
+        slot_uri: BIBO:volume
       journal:
-        slot_uri: http://purl.org/dc/terms/publisher
+        slot_uri: dcterms:publisher
       firstAuthor:
-        slot_uri: http://purl.org/dc/elements/1.1/creator
+        slot_uri: dc:creator
       abstractText:
-        slot_uri: http://purl.org/ontology/bibo/abstract
+        slot_uri: BIBO:abstract
       authors:
-        slot_uri: http://purl.org/ontology/bibo/authorList
+        slot_uri: BIBO:authorList
         range: Author
         multivalued: true
-        inverse: publications
       entities:
         range: Annotable
         multivalued: true
@@ -556,9 +563,9 @@ classes:
       residues:
         slot_uri: rdf:value
       length:
-        slot_uri: dct:SizeOrDuration
+        slot_uri: dcterms:SizeOrDuration
       md5checksum:
-        slot_uri: uniprot:md5Checksum
+        slot_uri: uniprot.core:md5Checksum
 
 
   SequenceCollection:
@@ -611,7 +618,6 @@ classes:
       syntenicRegions:
         range: SyntenicRegion
         multivalued: true
-        inverse: syntenyBlock
       dataSets:
         range: DataSet
         multivalued: true
@@ -628,7 +634,6 @@ classes:
       syntenyBlock:
         range: SyntenyBlock
         multivalued: false
-        inverse: syntenicRegions
 
 slots:
 
@@ -639,8 +644,6 @@ slots:
   subject:
 
   publications:
-    range: Publication
-    multivalued: true
 
   entities:
 
@@ -667,9 +670,6 @@ slots:
   synonyms:
 
   dataSets:
-    slot_uri: SIO:001278
-    range: DataSet
-    multivalued: true
 
   crossReferences:
 
@@ -688,9 +688,6 @@ slots:
   licence:
 
   dataSource:
-    slot_uri: SIO:001278
-    range: DataSource
-    multivalued: true
 
   publication:
 
