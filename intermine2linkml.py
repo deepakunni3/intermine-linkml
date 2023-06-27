@@ -41,7 +41,11 @@ def translate_model(input_obj: Dict, linkml_obj: Dict) -> None:
         output_obj: The LinkML schema object
 
     """
-    for class_name, class_obj in input_obj['model']['classes'].items():
+    if 'model' in input_obj:
+        input_model = input_obj['model']
+    else:
+        input_model = input_obj
+    for class_name, class_obj in input_model['classes'].items():
         class_definition = {
             'name': class_name,   
         }
@@ -131,8 +135,12 @@ def serialize(obj, filename, indent=2) -> None:
         indent: Indentation level for YAML
 
     """
-    with open(filename, 'w') as file:
-        yaml.dump(obj, file, indent=indent)
+    if filename.endswith('.json'):
+        with open(filename, 'w') as file:
+            json.dump(obj, file, indent=indent)
+    else:
+        with open(filename, 'w') as file:
+            yaml.dump(obj, file, indent=indent)
 
 
 def get_linkml_type(java_type: str) -> str:
